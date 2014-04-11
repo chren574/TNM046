@@ -1,0 +1,133 @@
+# depslib dependency file v1.0
+1396879231 source:h:\tnm046\labbar\labmaterial-2014-03-27\glprimer.cpp
+	"Shader.hpp"
+	"Utilities.hpp"
+	<iostream>
+	<GLFW/glfw3.h>
+
+1394020668 h:\tnm046\labbar\labmaterial-2014-03-27\glfw\glfw3.h
+	<stddef.h>
+	<OpenGL/gl3.h>
+	<OpenGL/gl.h>
+	<OpenGL/glu.h>
+	<GL/glcorearb.h>
+	<GLES/gl.h>
+	<GLES2/gl2.h>
+	<GLES3/gl3.h>
+	<GL/gl.h>
+	<GL/glu.h>
+
+1395947562 h:\tnm046\labbar\labmaterial-2014-03-27\utilities.hpp
+	<GLFW/glfw3.h>
+	<GL/glext.h>
+
+1394020658 h:\tnm046\labbar\labmaterial-2014-03-27\gl\glext.h
+	<windows.h>
+	<stddef.h>
+	<inttypes.h>
+	<inttypes.h>
+	<inttypes.h>
+	<stdint.h>
+	<stdint.h>
+	<inttypes.h>
+
+1395947382 source:h:\tnm046\labbar\labmaterial-2014-03-27\utilities.cpp
+	<cstdio>
+	"Utilities.hpp"
+
+1396878805 h:\tnm046\labbar\labmaterial-2014-03-27\shader.hpp
+	<GLFW/glfw3.h>
+	"Utilities.hpp"
+	<cstdio>
+
+1395946950 source:h:\tnm046\labbar\labmaterial-2014-03-27\shader.cpp
+	"Shader.hpp"
+
+1395946950 source:h:\tnm046\labbar\labb1\shader.cpp
+	"Shader.hpp"
+
+1396878805 h:\tnm046\labbar\labb1\shader.hpp
+	<GLFW/glfw3.h>
+	"Utilities.hpp"
+	<cstdio>
+
+1394020668 h:\tnm046\labbar\labb1\glfw\glfw3.h
+	<stddef.h>
+	<OpenGL/gl3.h>
+	<OpenGL/gl.h>
+	<OpenGL/glu.h>
+	<GL/glcorearb.h>
+	<GLES/gl.h>
+	<GLES2/gl2.h>
+	<GLES3/gl3.h>
+	<GL/gl.h>
+	<GL/glu.h>
+
+1397036158 h:\tnm046\labbar\labb1\utilities.hpp
+	<GLFW/glfw3.h>
+	<GL/glext.h>
+
+1394020658 h:\tnm046\labbar\labb1\gl\glext.h
+	<windows.h>
+	<stddef.h>
+	<inttypes.h>
+	<inttypes.h>
+	<inttypes.h>
+	<stdint.h>
+	<stdint.h>
+	<inttypes.h>
+
+1397037150 source:h:\tnm046\labbar\labb1\utilities.cpp
+	<cstdio>
+	"Utilities.hpp"
+
+1397037416 source:h:\tnm046\labbar\labb1\glprimer.cpp
+	"Shader.hpp"
+	"Utilities.hpp"
+	<iostream>
+	<GLFW/glfw3.h>
+
+1397041018 source:c:\users\christoffer\dropbox\kursdata\tnm046\labb\labb1\glprimer.cpp
+	"Shader.hpp"
+	"Utilities.hpp"
+	<iostream>
+	<GLFW/glfw3.h>
+
+1396882406 c:\users\christoffer\dropbox\kursdata\tnm046\labb\labb1\shader.hpp
+	<GLFW/glfw3.h>
+	"Utilities.hpp"
+	<cstdio>
+
+1394020668 c:\users\christoffer\dropbox\kursdata\tnm046\labb\labb1\glfw\glfw3.h
+	<stddef.h>
+	<OpenGL/gl3.h>
+	<OpenGL/gl.h>
+	<OpenGL/glu.h>
+	<GL/glcorearb.h>
+	<GLES/gl.h>
+	<GLES2/gl2.h>
+	<GLES3/gl3.h>
+	<GL/gl.h>
+	<GL/glu.h>
+
+1397039760 c:\users\christoffer\dropbox\kursdata\tnm046\labb\labb1\utilities.hpp
+	<GLFW/glfw3.h>
+	<GL/glext.h>
+
+1394020658 c:\users\christoffer\dropbox\kursdata\tnm046\labb\labb1\gl\glext.h
+	<windows.h>
+	<stddef.h>
+	<inttypes.h>
+	<inttypes.h>
+	<inttypes.h>
+	<stdint.h>
+	<stdint.h>
+	<inttypes.h>
+
+1395946950 source:c:\users\christoffer\dropbox\kursdata\tnm046\labb\labb1\shader.cpp
+	"Shader.hpp"
+
+1397040752 source:c:\users\christoffer\dropbox\kursdata\tnm046\labb\labb1\utilities.cpp
+	<cstdio>
+	"Utilities.hpp"
+
