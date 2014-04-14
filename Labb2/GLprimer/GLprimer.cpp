@@ -87,30 +87,27 @@ int main(int argc, char *argv[])
     {
         -1.0f, -1.0f, 0.0f,  // First vertex, xyz
         1.0f, -1.0f, 0.0f,  // Second vertex, xyz
-        0.0f,  1.0f, 0.0f,   // Third vertex, xyz
-        //0.0f,  0.0f, 1.0f,   // Third vertex, xyz
+        //0.0f,  1.0f, 0.0f,   // Third vertex, xyz
+        1.0f,  1.0f, 0.0f,   // forth vertex, xyz
+        -1.0f,  1.0f, 0.0f,   // forth vertex, xyz
 
     };
 
     const GLfloat color_array_data[] =
     {
         1.0f, 0.0f, 0.0f,  // Red
+        1.0f, 0.0f, 0.0f,  // Red
+        1.0f, 0.0f, 0.0f,  // Red
+        0.0f, 1.0f, 0.0f,  // Green
+        0.0f, 1.0f, 0.0f,  // Green
         0.0f, 1.0f, 0.0f,  // Green
         0.0f, 0.0f, 1.0f,  // Blue
-
-//        0.5f, 0.5f, 0.5f,  // Blue
-//        1.0f, 0.0f, 0.0f,  // Red
-//        0.0f, 1.0f, 0.0f,  // Green
-//        0.0f, 0.0f, 1.0f,  // Blue
-//        0.5f, 0.5f, 0.5f,  // Blue
+        0.0f, 0.0f, 1.0f,  // Blue
     };
     const GLuint index_array_data[] =
     {
-        0,2,1,
-        1,2,3,
-        2,0,3,
-        0,1,3,
-
+        0,1,2,
+        0,3,2,
     };
 
     GLfloat T[16] = {
@@ -131,10 +128,10 @@ int main(int argc, char *argv[])
 
     GLint location_R;
     GLfloat M[16] = {
-    0.0f, 0.0f, 0.0f, 0.0f,
-    0.0f, 0.0f, 0.0f, 0.0f,
-    0.0f, 0.0f, 0.0f, 0.0f,
-    0.0f, 0.0f, 0.0f, 0.0f,
+    1.0f, 0.0f, 0.0f, 0.0f,
+    0.0f, 1.0f, 0.0f, 0.0f,
+    0.0f, 0.0f, 1.0f, 0.0f,
+    0.0f, 0.0f, 0.0f, 1.0f,
     };
 
     GLint location_M = -1;
@@ -142,33 +139,36 @@ int main(int argc, char *argv[])
     //Cube
     const GLfloat vertex_array_data_cube[] =
     {
-        0.0f, 0.0f, 0.0f,  // vertex V0
-        1.0f, -1.0f, -1.0f,  // vertex V1
-        -1.0f, 1.0f, -1.0f,  // vertex V2
-        -1.0f, -1.0f, 1.0f,  // vertex V3
-        1.0f, 1.0f, -1.0f,  // vertex V4
-        1.0f, -1.0f, 1.0f,  // vertex V5
-        -1.0f, 1.0f, 1.0f,  // vertex V6
-        1.0f, 1.0f, 1.0f,  // vertex V7
+        -1.0f, -1.0f, -1.0f,  // vertex V0
+        -1.0f, 1.0f, -1.0f,  // vertex V1
+        1.0f, 1.0f, -1.0f,  // vertex V2
+        1.0f, -1.0f, -1.0f,  // vertex V3
+        -1.0f, -1.0f, 1.0f,  // vertex V4
+        -1.0f, 1.0f, 1.0f,  // vertex V5
+        1.0f, 1.0f, 1.0f,  // vertex V6
+        1.0f, -1.0f, 1.0f  // vertex V7
     };
 
     const GLuint index_array_data_cube[] =
     {
-        0,3,6,  //negativ x
-        0,6,2,  //negativ x
-        1,7,5,  //positiv x
-        1,4,7,  //positiv x
 
-        0,5,3,  //negativ y
-        0,1,5,  //negativ y
-        2,6,7,  //positiv y
-        2,7,4,  //positiv y
+        0,5,1,  //negativ x
+        0,4,5,  //negativ x
 
-        3,5,7,  //positiv z
-        3,7,6,  //positiv z
+        2,6,7,  //positiv x
+        2,7,3,  //positiv x
+
+        0,3,7,  //negativ y
+        0,7,4,  //negativ y
+
+        1,5,6,  //positiv y
+        1,6,2,  //positiv y
+
+        0,1,2,  //negativ z
         0,2,3,  //negativ z
-        0,3,1,  //negativ z
 
+        4,7,6,  //positiv z
+        4,6,5,  //positiv z
     };
 
 
@@ -184,6 +184,7 @@ int main(int argc, char *argv[])
     // Make sure we are getting a GL context of at least version 3.3
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+
     // Exclude old legacy cruft from the context. We don't need it, and we don't want it.
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
@@ -201,10 +202,10 @@ int main(int argc, char *argv[])
     // (This step is strictly required, or things will simply not work)
     glfwMakeContextCurrent(window);
 
+    //Laddar in anvndbara funktioner
     Utilities::loadExtensions();
 
     myShader.createShader("vertex.glsl", "fragment.glsl");
-
 
     // Generate 1 Vertex array object, put the resulting identifier in vertexArrayID
     glGenVertexArrays(1, &vertexArrayID);
@@ -213,24 +214,16 @@ int main(int argc, char *argv[])
 
     // Create the vertex buffer objects for attribute locations 0 and 1
     // (the list of vertex coordinates and the list of vertex colors).
-    //Cube
-    //createVertexBuffer(0, 8, vertex_array_data_cube, sizeof(vertex_array_data_cube));
-    //createVertexBuffer(1, 3, color_array_data, sizeof(color_array_data));
-
-    //Triangel
-    createVertexBuffer(0, 3, vertex_array_data, sizeof(vertex_array_data));
+    createVertexBuffer(0, 3, vertex_array_data_cube, sizeof(vertex_array_data_cube));   //Kub
     createVertexBuffer(1, 3, color_array_data, sizeof(color_array_data));
+    //createVertexBuffer(0, 3, vertex_array_data, sizeof(vertex_array_data));             //Tiangel
 
     // Create the index buffer object (the list of triangles).
-    //Triangel
-    createIndexBuffer(index_array_data, sizeof(index_array_data));
-
-    //Cube
-    //createIndexBuffer(index_array_data_cube, sizeof(index_array_data_cube));
+    //createIndexBuffer(index_array_data, sizeof(index_array_data));                      //Triangel
+    createIndexBuffer(index_array_data_cube, sizeof(index_array_data_cube));          //Kub
 
     // Deactivate the vertex array object again to be nice
     glBindVertexArray(0);
-
 
     // Show some useful information on the GL context
     cout << "GL vendor:       " << glGetString(GL_VENDOR) << endl;
@@ -241,8 +234,9 @@ int main(int argc, char *argv[])
     // Get window size. It may start out different from the requested
     // size, and will change if the user resizes the window.
     glfwGetWindowSize( window, &width, &height );
+
     // Set viewport. This is the pixel rectangle we want to draw into.
-    glViewport( 0, 0, width, height ); // The entire window
+    glViewport(0, 0, width, height ); // The entire window
 
     glfwSwapInterval(0); // Do not wait for screen refresh between frames
 
@@ -252,28 +246,25 @@ int main(int argc, char *argv[])
         cout << "Unable to locate variable 'time' in shader!" << endl;
     }
 
-
-
-
     location_T = glGetUniformLocation(myShader.programID, "T");
     location_R = glGetUniformLocation(myShader.programID, "R");
     location_M = glGetUniformLocation(myShader.programID, "M");
 
     printf("M is %d\n", location_M);
 
-    Utilities::mat4mult(T,R,M);
+    //Utilities::mat4mult(T,R,M);
     //Utilities::mat4identity(M);
     //Utilities::mat4scale(M, 2);
     //Utilities::mat4roty(M,45.0);
-
+/*
     printf("Matrix:\n");
     printf("%6.2f %6.2f %6.2f %6.2f\n", M[0], M[4], M[8], M[12]);
     printf("%6.2f %6.2f %6.2f %6.2f\n", M[1], M[5], M[9], M[13]);
     printf("%6.2f %6.2f %6.2f %6.2f\n", M[2], M[6], M[10], M[14]);
     printf("%6.2f %6.2f %6.2f %6.2f\n", M[3], M[7], M[11], M[15]);
     printf("\n");
-
-    //glEnable(GL_CULL_FACE);
+*/
+    glEnable(GL_CULL_FACE);
 
     //glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
@@ -295,18 +286,18 @@ int main(int argc, char *argv[])
         glUseProgram(myShader.programID);
         glUniform1f(location_time, time);
 
-        //glUniformMatrix4fv(location_T, 1, GL_FALSE, T);
-        //glUniformMatrix4fv(location_R, 1, GL_FALSE, R);
-        Utilities::mat4rotz(M,time*pi/3);
+        Utilities::mat4roty(M,time*pi/6);
+
         glUniformMatrix4fv(location_M, 1, GL_FALSE, M);
 
         // Activate the vertex array object we want to draw (we may have several)
         glBindVertexArray(vertexArrayID);
+
         // Draw our triangle with 3 vertices.
         // When the last argument of glDrawElements is NULL, it means
         // "use the previously bound index buffer". (This is not obvious.)
         // The index buffer is part of the VAO state and is bound with it.
-        glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, NULL);
+        glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, NULL);
 
         // Swap buffers, i.e. display the image and prepare for next frame.
         glfwSwapBuffers(window);
