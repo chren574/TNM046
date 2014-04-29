@@ -89,35 +89,9 @@ int main(int argc, char *argv[])
 
     GLfloat M[16];
     GLint location_M = -1;
-//
-//    const GLfloat vertex_array_data[] =
-//    {
-//        -1.0f, -1.0f, 0.0f,  // First vertex, xyz
-//        1.0f, -1.0f, 0.0f,  // Second vertex, xyz
-//        //0.0f,  1.0f, 0.0f,   // Third vertex, xyz
-//        1.0f,  1.0f, 0.0f,   // forth vertex, xyz
-//        -1.0f,  1.0f, 0.0f,   // forth vertex, xyz
-//    };
 
-    const GLfloat color_array_data[] =
-    {
-        1.0f, 0.0f, 0.0f,  // Red
-        1.0f, 0.0f, 0.0f,  // Red
-        1.0f, 0.0f, 0.0f,  // Red
-        0.0f, 1.0f, 0.0f,  // Green
-        0.0f, 1.0f, 0.0f,  // Green
-        0.0f, 1.0f, 0.0f,  // Green
-        0.0f, 0.0f, 1.0f,  // Blue
-        0.0f, 0.0f, 1.0f,  // Blue
-    };
-
-//    const GLuint index_array_data[] =
-//    {
-//        0,1,2,
-//        0,3,2,
-//    };
-
-    //Cube
+    /* ---- Kuben ---- */
+    // Vertex array
     const GLfloat vertex_array_data_cube[] =
     {
         -1.0f, -1.0f, -1.0f,  // vertex V0
@@ -129,7 +103,7 @@ int main(int argc, char *argv[])
         1.0f, 1.0f, 1.0f,  // vertex V6
         1.0f, -1.0f, 1.0f  // vertex V7
     };
-
+    // Index array
     const GLuint index_array_data_cube[] =
     {
 
@@ -151,7 +125,18 @@ int main(int argc, char *argv[])
         4,7,6,  //positiv z
         4,6,5,  //positiv z
     };
-
+    /* ---- Färg ---- */
+    const GLfloat color_array_data[] =
+    {
+        1.0f, 0.0f, 0.0f,  // Red
+        1.0f, 0.0f, 0.0f,  // Red
+        1.0f, 0.0f, 0.0f,  // Red
+        0.0f, 1.0f, 0.0f,  // Green
+        0.0f, 1.0f, 0.0f,  // Green
+        0.0f, 1.0f, 0.0f,  // Green
+        0.0f, 0.0f, 1.0f,  // Blue
+        0.0f, 0.0f, 1.0f,  // Blue
+    };
 
     const GLFWvidmode *vidmode;  // GLFW struct to hold information about the display
     GLFWwindow *window;    // GLFW struct to hold information about the window
@@ -218,7 +203,6 @@ int main(int argc, char *argv[])
 
     // Set viewport. This is the pixel rectangle we want to draw into.
     glViewport(0, 0, width, height ); // The entire window
-
     glfwSwapInterval(0); // Do not wait for screen refresh between frames
 
 
@@ -230,13 +214,7 @@ int main(int argc, char *argv[])
     location_T = glGetUniformLocation(myShader.programID, "T");
     location_M = glGetUniformLocation(myShader.programID, "M");
 
-    //printf("M is %d\n", location_M);
-    //Utilities::mat4mult(Utilities::mat4rotx(M,45.0),Utilities::mat4roty(M,pi/6),M);
-    //Utilities::mat4identity(M);
-    //Utilities::mat4scale(M, 2);
-
     Utilities::mat4identity(T);
-
 /*
     printf("Matrix:\n");
     printf("%6.2f %6.2f %6.2f %6.2f\n", M[0], M[4], M[8], M[12]);
@@ -249,7 +227,7 @@ int main(int argc, char *argv[])
 
     //glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
-    // Main loop
+    /* ---- Main loop ---- */
     while(!glfwWindowShouldClose(window))
     {
         glfwGetWindowSize( window, &width, &height );
@@ -269,18 +247,23 @@ int main(int argc, char *argv[])
         /* ---- Transformationer ---- */
         Utilities::mat4identity(M);
 
+        /* ---- Skalar ---- */
         Utilities::mat4scale(T, 0.1);
         Utilities::mat4mult(T,M,M);
 
+        /* ---- Roterar runt egen axel ---- */
         Utilities::mat4roty(T,time*pi/6);
         Utilities::mat4mult(T,M,M);
 
+        /* ---- Translaterar ---- */
         Utilities::mat4translate(T, 0.3, 0, 0);
         Utilities::mat4mult(T,M,M);
 
+        /* ---- Roterar runt origo ---- */
         Utilities::mat4roty(T,time*pi/6);
         Utilities::mat4mult(T,M,M);
 
+        /* ---- Roterar så man ser i fågelperspektiv ---- */
         Utilities::mat4rotx(T,pi/4);
         Utilities::mat4mult(T,M,M);
 

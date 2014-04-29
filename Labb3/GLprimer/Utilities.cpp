@@ -195,12 +195,9 @@ void Utilities::mat4mult(float M2[], float M1[], float Mout[]) {
     Mtemp[14] = M1[12]*M2[2]+M1[13]*M2[6]+M1[14]*M2[10]+M1[15]*M2[14];
     Mtemp[15] = M1[12]*M2[3]+M1[13]*M2[7]+M1[14]*M2[11]+M1[15]*M2[15];
 
-
     for(int i = 0; i < 16; i++){
         Mout[i] = Mtemp[i];
     }
-
-
 }
 
 void Utilities::mat4identity(float M[]) {
@@ -211,7 +208,6 @@ void Utilities::mat4identity(float M[]) {
             M[i] = 1;
         }
     }
-
 }
 
 void Utilities::mat4rotx(float M[], float angle) {
@@ -222,8 +218,6 @@ void Utilities::mat4rotx(float M[], float angle) {
     M[6] = sin(angle);
     M[9] = -sin(angle);
     M[10] = cos(angle);
-
-
 }
 void Utilities::mat4roty(float M[], float angle) {
 
@@ -233,7 +227,6 @@ void Utilities::mat4roty(float M[], float angle) {
     M[2] = -sin(angle);
     M[8] = sin(angle);
     M[10] = cos(angle);
-
 }
 
 void Utilities::mat4rotz(float M[], float angle) {
@@ -244,7 +237,6 @@ void Utilities::mat4rotz(float M[], float angle) {
     M[1] = sin(angle);
     M[4] = -sin(angle);
     M[5] = cos(angle);
-
 }
 
 void Utilities::mat4scale(float M[], float scale) {
@@ -254,7 +246,6 @@ void Utilities::mat4scale(float M[], float scale) {
     M[0] = scale;
     M[5] = scale;
     M[10] = scale;
-
 }
 
 void Utilities::mat4translate(float M[], float x, float y, float z) {
@@ -264,13 +255,6 @@ void Utilities::mat4translate(float M[], float x, float y, float z) {
     M[12] = x;
     M[13] = y;
     M[14] = z;
-    //M[15] = 0;
-
 }
-
-
-
-
-
 
 
