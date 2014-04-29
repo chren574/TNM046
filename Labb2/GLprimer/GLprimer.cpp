@@ -89,15 +89,7 @@ int main(int argc, char *argv[])
 
     GLfloat M[16];
     GLint location_M = -1;
-//
-//    const GLfloat vertex_array_data[] =
-//    {
-//        -1.0f, -1.0f, 0.0f,  // First vertex, xyz
-//        1.0f, -1.0f, 0.0f,  // Second vertex, xyz
-//        //0.0f,  1.0f, 0.0f,   // Third vertex, xyz
-//        1.0f,  1.0f, 0.0f,   // forth vertex, xyz
-//        -1.0f,  1.0f, 0.0f,   // forth vertex, xyz
-//    };
+
 
     const GLfloat color_array_data[] =
     {
@@ -111,23 +103,17 @@ int main(int argc, char *argv[])
         0.0f, 0.0f, 1.0f,  // Blue
     };
 
-//    const GLuint index_array_data[] =
-//    {
-//        0,1,2,
-//        0,3,2,
-//    };
-
     //Cube
     const GLfloat vertex_array_data_cube[] =
     {
-        -1.0f, -1.0f, -1.0f,  // vertex V0
-        -1.0f, 1.0f, -1.0f,  // vertex V1
-        1.0f, 1.0f, -1.0f,  // vertex V2
-        1.0f, -1.0f, -1.0f,  // vertex V3
-        -1.0f, -1.0f, 1.0f,  // vertex V4
-        -1.0f, 1.0f, 1.0f,  // vertex V5
-        1.0f, 1.0f, 1.0f,  // vertex V6
-        1.0f, -1.0f, 1.0f  // vertex V7
+        -1.0f, -1.0f, -1.0f,    // vertex V0
+        -1.0f, 1.0f, -1.0f,     // vertex V1
+        1.0f, 1.0f, -1.0f,      // vertex V2
+        1.0f, -1.0f, -1.0f,     // vertex V3
+        -1.0f, -1.0f, 1.0f,     // vertex V4
+        -1.0f, 1.0f, 1.0f,      // vertex V5
+        1.0f, 1.0f, 1.0f,       // vertex V6
+        1.0f, -1.0f, 1.0f       // vertex V7
     };
 
     const GLuint index_array_data_cube[] =
@@ -230,21 +216,8 @@ int main(int argc, char *argv[])
     location_T = glGetUniformLocation(myShader.programID, "T");
     location_M = glGetUniformLocation(myShader.programID, "M");
 
-    //printf("M is %d\n", location_M);
-    //Utilities::mat4mult(Utilities::mat4rotx(M,45.0),Utilities::mat4roty(M,pi/6),M);
-    //Utilities::mat4identity(M);
-    //Utilities::mat4scale(M, 2);
-
     Utilities::mat4identity(T);
 
-/*
-    printf("Matrix:\n");
-    printf("%6.2f %6.2f %6.2f %6.2f\n", M[0], M[4], M[8], M[12]);
-    printf("%6.2f %6.2f %6.2f %6.2f\n", M[1], M[5], M[9], M[13]);
-    printf("%6.2f %6.2f %6.2f %6.2f\n", M[2], M[6], M[10], M[14]);
-    printf("%6.2f %6.2f %6.2f %6.2f\n", M[3], M[7], M[11], M[15]);
-    printf("\n");
-*/
     glEnable(GL_CULL_FACE);
 
     //glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
