@@ -21,6 +21,7 @@
  */
 #include "Shader.hpp"
 #include "Utilities.hpp"
+#include "TriangleSoup.hpp"
 
 // File and console I/O for logging and error reporting
 #include <iostream>
@@ -36,34 +37,7 @@
 // GLFW 3.x, to handle the OpenGL window
 #include <GLFW/glfw3.h>
 
-void createVertexBuffer(int location, int dimensions, const float *data, int datasize) {
 
-	GLuint bufferID;
-
-	// Generate buffer, activate it and copy the data
-	glGenBuffers(1, &bufferID);
-	glBindBuffer(GL_ARRAY_BUFFER, bufferID);
-	glBufferData(GL_ARRAY_BUFFER, datasize, data, GL_STATIC_DRAW);
-	// Tell OpenGL how the data is stored in our buffer
-	// Attribute location (must match layout(location=#) statement in shader)
-	// Number of dimensions (3 -> vec3 in the shader, 2-> vec2 in the shader),
-	// type GL_FLOAT, not normalized, stride 0, start at element 0
-	glVertexAttribPointer(location, dimensions, GL_FLOAT, GL_FALSE, 0, NULL);
-	// Enable the attribute in the currently bound VAO
-	glEnableVertexAttribArray(location);
-}
-
-void createIndexBuffer(const unsigned int *data, int datasize) {
-
-	GLuint bufferID;
-
-	// Generate buffer, activate it and copy the data
-	glGenBuffers(1, &bufferID);
-    // Activate (bind) the index buffer and copy data to it.
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, bufferID);
-    // Present our vertex indices to OpenGL
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, datasize, data, GL_STATIC_DRAW);
-}
 /*
  * main(argc, argv) - the standard C++ entry point for the program
  */
@@ -72,71 +46,13 @@ int main(int argc, char *argv[])
 
     using namespace std;
 
-    const float pi = 3.14;
-
     int width, height;
     float time;
 
     Shader myShader;
+    TriangleSoup myShape;
+
     GLint location_time;
-
-    // Vertex coordinates (x,y,z) for three vertices
-    GLuint colorBufferID; // Vertex colors
-    GLuint vertexArrayID, vertexBufferID, indexBufferID;
-
-    GLfloat T[16];
-    GLint location_T;
-
-    GLfloat M[16];
-    GLint location_M = -1;
-
-    /* ---- Kuben ---- */
-    // Vertex array
-    const GLfloat vertex_array_data_cube[] =
-    {
-        -1.0f, -1.0f, -1.0f,  // vertex V0
-        -1.0f, 1.0f, -1.0f,  // vertex V1
-        1.0f, 1.0f, -1.0f,  // vertex V2
-        1.0f, -1.0f, -1.0f,  // vertex V3
-        -1.0f, -1.0f, 1.0f,  // vertex V4
-        -1.0f, 1.0f, 1.0f,  // vertex V5
-        1.0f, 1.0f, 1.0f,  // vertex V6
-        1.0f, -1.0f, 1.0f  // vertex V7
-    };
-    // Index array
-    const GLuint index_array_data_cube[] =
-    {
-
-        0,5,1,  //negativ x
-        0,4,5,  //negativ x
-
-        2,6,7,  //positiv x
-        2,7,3,  //positiv x
-
-        0,3,7,  //negativ y
-        0,7,4,  //negativ y
-
-        1,5,6,  //positiv y
-        1,6,2,  //positiv y
-
-        0,1,2,  //negativ z
-        0,2,3,  //negativ z
-
-        4,7,6,  //positiv z
-        4,6,5,  //positiv z
-    };
-    /* ---- Färg ---- */
-    const GLfloat color_array_data[] =
-    {
-        1.0f, 0.0f, 0.0f,  // Red
-        1.0f, 0.0f, 0.0f,  // Red
-        1.0f, 0.0f, 0.0f,  // Red
-        0.0f, 1.0f, 0.0f,  // Green
-        0.0f, 1.0f, 0.0f,  // Green
-        0.0f, 1.0f, 0.0f,  // Green
-        0.0f, 0.0f, 1.0f,  // Blue
-        0.0f, 0.0f, 1.0f,  // Blue
-    };
 
     const GLFWvidmode *vidmode;  // GLFW struct to hold information about the display
     GLFWwindow *window;    // GLFW struct to hold information about the window
@@ -172,24 +88,8 @@ int main(int argc, char *argv[])
     Utilities::loadExtensions();
 
     myShader.createShader("vertex.glsl", "fragment.glsl");
-
-    // Generate 1 Vertex array object, put the resulting identifier in vertexArrayID
-    glGenVertexArrays(1, &vertexArrayID);
-    // Activate the vertex array object
-    glBindVertexArray(vertexArrayID);
-
-    // Create the vertex buffer objects for attribute locations 0 and 1
-    // (the list of vertex coordinates and the list of vertex colors).
-    createVertexBuffer(0, 3, vertex_array_data_cube, sizeof(vertex_array_data_cube));   //Kub
-    createVertexBuffer(1, 3, color_array_data, sizeof(color_array_data));
-    //createVertexBuffer(0, 3, vertex_array_data, sizeof(vertex_array_data));             //Tiangel
-
-    // Create the index buffer object (the list of triangles).
-    //createIndexBuffer(index_array_data, sizeof(index_array_data));                      //Triangel
-    createIndexBuffer(index_array_data_cube, sizeof(index_array_data_cube));          //Kub
-
-    // Deactivate the vertex array object again to be nice
-    glBindVertexArray(0);
+    //myShape.createTriangle();
+    myShape.createSphere(0.5,20);
 
     // Show some useful information on the GL context
     cout << "GL vendor:       " << glGetString(GL_VENDOR) << endl;
@@ -211,19 +111,7 @@ int main(int argc, char *argv[])
         cout << "Unable to locate variable 'time' in shader!" << endl;
     }
 
-    location_T = glGetUniformLocation(myShader.programID, "T");
-    location_M = glGetUniformLocation(myShader.programID, "M");
-
-    Utilities::mat4identity(T);
-/*
-    printf("Matrix:\n");
-    printf("%6.2f %6.2f %6.2f %6.2f\n", M[0], M[4], M[8], M[12]);
-    printf("%6.2f %6.2f %6.2f %6.2f\n", M[1], M[5], M[9], M[13]);
-    printf("%6.2f %6.2f %6.2f %6.2f\n", M[2], M[6], M[10], M[14]);
-    printf("%6.2f %6.2f %6.2f %6.2f\n", M[3], M[7], M[11], M[15]);
-    printf("\n");
-*/
-    glEnable(GL_CULL_FACE);
+    //glEnable(GL_CULL_FACE);
 
     //glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
@@ -245,38 +133,13 @@ int main(int argc, char *argv[])
         glUniform1f(location_time, time);
 
         /* ---- Transformationer ---- */
-        Utilities::mat4identity(M);
 
-        /* ---- Skalar ---- */
-        Utilities::mat4scale(T, 0.1);
-        Utilities::mat4mult(T,M,M);
 
-        /* ---- Roterar runt egen axel ---- */
-        Utilities::mat4roty(T,time*pi/6);
-        Utilities::mat4mult(T,M,M);
+        myShape.render();
 
-        /* ---- Translaterar ---- */
-        Utilities::mat4translate(T, 0.3, 0, 0);
-        Utilities::mat4mult(T,M,M);
 
-        /* ---- Roterar runt origo ---- */
-        Utilities::mat4roty(T,time*pi/6);
-        Utilities::mat4mult(T,M,M);
 
-        /* ---- Roterar så man ser i fågelperspektiv ---- */
-        Utilities::mat4rotx(T,pi/4);
-        Utilities::mat4mult(T,M,M);
-
-        glUniformMatrix4fv(location_M, 1, GL_FALSE, M);
-
-        // Activate the vertex array object we want to draw (we may have several)
-        glBindVertexArray(vertexArrayID);
-
-        // Draw our triangle with 3 vertices.
-        // When the last argument of glDrawElements is NULL, it means
-        // "use the previously bound index buffer". (This is not obvious.)
-        // The index buffer is part of the VAO state and is bound with it.
-        glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, NULL);
+        Utilities::mat4roty(myShape, time*45.0);
 
         // Swap buffers, i.e. display the image and prepare for next frame.
         glfwSwapBuffers(window);

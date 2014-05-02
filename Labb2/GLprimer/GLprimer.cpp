@@ -94,33 +94,85 @@ int main(int argc, char *argv[])
     const GLfloat color_array_data[] =
     {
         1.0f, 0.0f, 0.0f,  // Red
-        1.0f, 0.0f, 0.0f,  // Red
-        1.0f, 0.0f, 0.0f,  // Red
-        0.0f, 1.0f, 0.0f,  // Green
-        0.0f, 1.0f, 0.0f,  // Green
-        0.0f, 1.0f, 0.0f,  // Green
         0.0f, 0.0f, 1.0f,  // Blue
+        0.0f, 1.0f, 0.0f,  // Green
+
+        1.0f, 0.0f, 0.0f,  // Red
         0.0f, 0.0f, 1.0f,  // Blue
+        0.0f, 1.0f, 0.0f,  // Green
+
+        1.0f, 0.0f, 0.0f,  // Red
+        0.0f, 0.0f, 1.0f,  // Blue
+        0.0f, 1.0f, 0.0f,  // Green
+
+        1.0f, 0.0f, 0.0f,  // Red
+        0.0f, 0.0f, 1.0f,  // Blue
+        0.0f, 1.0f, 0.0f,  // Green
+
+        1.0f, 0.0f, 0.0f,  // Red
+        0.0f, 0.0f, 1.0f,  // Blue
+        0.0f, 1.0f, 0.0f,  // Green
+
+        1.0f, 0.0f, 0.0f,  // Red
+        0.0f, 0.0f, 1.0f,  // Blue
+        0.0f, 1.0f, 0.0f,  // Green
+
+        1.0f, 0.0f, 0.0f,  // Red
+        0.0f, 0.0f, 1.0f,  // Blue
+        0.0f, 1.0f, 0.0f,  // Green
+
+        1.0f, 0.0f, 0.0f,  // Red
+        0.0f, 0.0f, 1.0f,  // Blue
+        0.0f, 1.0f, 0.0f,  // Green
+
+
     };
 
     //Cube
     const GLfloat vertex_array_data_cube[] =
     {
-        -1.0f, -1.0f, -1.0f,    // vertex V0
-        -1.0f, 1.0f, -1.0f,     // vertex V1
-        1.0f, 1.0f, -1.0f,      // vertex V2
-        1.0f, -1.0f, -1.0f,     // vertex V3
-        -1.0f, -1.0f, 1.0f,     // vertex V4
-        -1.0f, 1.0f, 1.0f,      // vertex V5
-        1.0f, 1.0f, 1.0f,       // vertex V6
-        1.0f, -1.0f, 1.0f       // vertex V7
+        -1.0f, -1.0f, -1.0f,    // vertex V0    0
+        -1.0f, -1.0f, -1.0f,    // vertex V0    1
+        -1.0f, -1.0f, -1.0f,    // vertex V0    2
+
+        -1.0f, 1.0f, -1.0f,     // vertex V1    3
+        -1.0f, 1.0f, -1.0f,     // vertex V1    4
+        -1.0f, 1.0f, -1.0f,     // vertex V1    5
+
+        1.0f, 1.0f, -1.0f,      // vertex V2    6
+        1.0f, 1.0f, -1.0f,      // vertex V2    7
+        1.0f, 1.0f, -1.0f,      // vertex V2    8
+
+        1.0f, -1.0f, -1.0f,     // vertex V3    9
+        1.0f, -1.0f, -1.0f,     // vertex V3    10
+        1.0f, -1.0f, -1.0f,     // vertex V3    11
+
+        -1.0f, -1.0f, 1.0f,     // vertex V4    12
+        -1.0f, -1.0f, 1.0f,     // vertex V4    13
+        -1.0f, -1.0f, 1.0f,     // vertex V4    14
+
+        -1.0f, 1.0f, 1.0f,      // vertex V5    15
+        -1.0f, 1.0f, 1.0f,      // vertex V5    16
+        -1.0f, 1.0f, 1.0f,      // vertex V5    17
+
+        1.0f, 1.0f, 1.0f,       // vertex V6    18
+        1.0f, 1.0f, 1.0f,       // vertex V6    19
+        1.0f, 1.0f, 1.0f,       // vertex V6    20
+
+        1.0f, -1.0f, 1.0f,       // vertex V7   21
+        1.0f, -1.0f, 1.0f,       // vertex V7   22
+        1.0f, -1.0f, 1.0f,       // vertex V7   23
+
+
+
     };
 
     const GLuint index_array_data_cube[] =
     {
 
-        0,5,1,  //negativ x
-        0,4,5,  //negativ x
+        0,15,3,  //röd
+        1,10,22,  //blå
+        2,8,5,  //grön
 
         2,6,7,  //positiv x
         2,7,3,  //positiv x

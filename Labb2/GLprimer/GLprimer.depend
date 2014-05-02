@@ -270,3 +270,50 @@
 	<cmath>
 	<GLFW/glfw3.h>
 
+1397507572 source:g:\ladda upp till github\tnm046\labb2\glprimer\shader.cpp
+	"Shader.hpp"
+
+1397507572 g:\ladda upp till github\tnm046\labb2\glprimer\shader.hpp
+	<GLFW/glfw3.h>
+	"Utilities.hpp"
+	<cstdio>
+
+1397507572 g:\ladda upp till github\tnm046\labb2\glprimer\glfw\glfw3.h
+	<stddef.h>
+	<OpenGL/gl3.h>
+	<OpenGL/gl.h>
+	<OpenGL/glu.h>
+	<GL/glcorearb.h>
+	<GLES/gl.h>
+	<GLES2/gl2.h>
+	<GLES3/gl3.h>
+	<GL/gl.h>
+	<GL/glu.h>
+
+1397507572 g:\ladda upp till github\tnm046\labb2\glprimer\utilities.hpp
+	<GLFW/glfw3.h>
+	<GL/glext.h>
+
+1397507572 g:\ladda upp till github\tnm046\labb2\glprimer\gl\glext.h
+	<windows.h>
+	<stddef.h>
+	<inttypes.h>
+	<inttypes.h>
+	<inttypes.h>
+	<stdint.h>
+	<stdint.h>
+	<inttypes.h>
+
+1399026856 source:g:\ladda upp till github\tnm046\labb2\glprimer\glprimer.cpp
+	"Shader.hpp"
+	"Utilities.hpp"
+	<iostream>
+	<cstdio>
+	<cmath>
+	<GLFW/glfw3.h>
+
+1399026856 source:g:\ladda upp till github\tnm046\labb2\glprimer\utilities.cpp
+	<cstdio>
+	<cmath>
+	"Utilities.hpp"
+
