@@ -162,32 +162,36 @@ int main(int argc, char *argv[])
         1.0f, -1.0f, 1.0f,       // vertex V7   21
         1.0f, -1.0f, 1.0f,       // vertex V7   22
         1.0f, -1.0f, 1.0f,       // vertex V7   23
-
-
-
     };
 
     const GLuint index_array_data_cube[] =
     {
 
-        0,15,3,  //röd
-        1,10,22,  //blå
-        2,8,5,  //grön
+        //Bakre sidan
+        0,15,3,  //röd V0->V5->V1
+        0,12,15, //röd V0->V4->V5
 
-        2,6,7,  //positiv x
-        2,7,3,  //positiv x
+        //Framsidan
+        9,6,18,  //röd V3->V2->V6
+        9,18,21, //röd V3->V6->V7
 
-        0,3,7,  //negativ y
-        0,7,4,  //negativ y
+        //Högersidan
+        7,16,19,  //blå V2->V5->V6
+        7,4,16, //blå V2->V1->V5
 
-        1,5,6,  //positiv y
-        1,6,2,  //positiv y
+        //Vänstersidan
+        10,22,13,  //blå V3->V7->V4
+        10,13,1, //blå V3->V4->V0
 
-        0,1,2,  //negativ z
-        0,2,3,  //negativ z
+        //Toppen
+        23,17,14,  //grön V7->V5->V4
+        23,20,17,  //grön V7->V4->V5
 
-        4,7,6,  //positiv z
-        4,6,5,  //positiv z
+        //Botten
+        11,2,5,  //grön V3->V0->V1
+        11,5,8,  //grön V3->V1->V2
+
+
     };
 
 

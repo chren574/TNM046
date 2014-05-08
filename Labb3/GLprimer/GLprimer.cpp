@@ -46,6 +46,8 @@ int main(int argc, char *argv[])
 
     using namespace std;
 
+    const float pi = 3.14;
+
     int width, height;
     float time;
 
@@ -53,6 +55,9 @@ int main(int argc, char *argv[])
     TriangleSoup myShape;
 
     GLint location_time;
+
+    GLfloat T[16];
+    GLint location_T;
 
     const GLFWvidmode *vidmode;  // GLFW struct to hold information about the display
     GLFWwindow *window;    // GLFW struct to hold information about the window
@@ -110,10 +115,13 @@ int main(int argc, char *argv[])
     if(location_time != -1){
         cout << "Unable to locate variable 'time' in shader!" << endl;
     }
+    Utilities::mat4identity(T);
+    location_T = glGetUniformLocation(myShader.programID, "T");
+
 
     //glEnable(GL_CULL_FACE);
 
-    //glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
     /* ---- Main loop ---- */
     while(!glfwWindowShouldClose(window))
@@ -132,14 +140,17 @@ int main(int argc, char *argv[])
         glUseProgram(myShader.programID);
         glUniform1f(location_time, time);
 
-        /* ---- Transformationer ---- */
 
+
+        glUniformMatrix4fv(location_T, 1, GL_FALSE, T);
+
+        /* ---- Transformationer ---- */
 
         myShape.render();
 
+        Utilities::mat4roty(T, time*pi/4);
 
-
-        Utilities::mat4roty(myShape, time*45.0);
+        //Utilities::mat4scale(T, 0.1);
 
         // Swap buffers, i.e. display the image and prepare for next frame.
         glfwSwapBuffers(window);
