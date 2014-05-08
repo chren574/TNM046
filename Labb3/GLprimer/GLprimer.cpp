@@ -94,7 +94,7 @@ int main(int argc, char *argv[])
 
     myShader.createShader("vertex.glsl", "fragment.glsl");
     //myShape.createTriangle();
-    myShape.createSphere(0.5,20);
+    myShape.createSphere(0.5,50);
 
     // Show some useful information on the GL context
     cout << "GL vendor:       " << glGetString(GL_VENDOR) << endl;
@@ -119,7 +119,7 @@ int main(int argc, char *argv[])
     location_T = glGetUniformLocation(myShader.programID, "T");
 
 
-    //glEnable(GL_CULL_FACE);
+    glEnable(GL_CULL_FACE);
 
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
@@ -148,7 +148,7 @@ int main(int argc, char *argv[])
 
         myShape.render();
 
-        Utilities::mat4roty(T, time*pi/4);
+        Utilities::mat4roty(T, time*pi/3);
 
         //Utilities::mat4scale(T, 0.1);
 

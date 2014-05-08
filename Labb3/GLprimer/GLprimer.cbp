@@ -50,6 +50,8 @@
 		<Unit filename="GLprimer.cpp" />
 		<Unit filename="Shader.cpp" />
 		<Unit filename="Shader.hpp" />
+		<Unit filename="TriangleSoup.cpp" />
+		<Unit filename="TriangleSoup.hpp" />
 		<Unit filename="Utilities.cpp" />
 		<Unit filename="Utilities.hpp" />
 		<Unit filename="fragment.glsl" />
