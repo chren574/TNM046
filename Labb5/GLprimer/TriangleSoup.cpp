@@ -134,37 +134,38 @@ void TriangleSoup::createTriangle() {
 void TriangleSoup::createBox(float xsize, float ysize, float zsize) {
 
       const GLfloat vertex_array_data[] = {
+
         -xsize, -ysize, -zsize, -1.0f, 0.0f, 0.0f,  0.0f, 0.0f,   // vertex V0    0
-        -xsize, -ysize, -zsize,  0.0f, -1.0f, 0.0f, 0.0f, 0.0f,  // vertex V0    1
-        -xsize, -ysize, -zsize,  0.0f, 0.0f, -1.0f, 0.0f, 0.0f,   // vertex V0    2
+        -xsize, -ysize, -zsize,  0.0f, -1.0f, 0.0f, 1.0f, 0.0f,  // vertex V0    1
+        -xsize, -ysize, -zsize,  0.0f, 0.0f, -1.0f, 0.0f, 1.0f,   // vertex V0    2
 
-        -xsize, ysize, -zsize,  -1.0f, 0.0f, 0.0f,  0.0f, 0.0f,    // vertex V1    3
-        -xsize, ysize, -zsize,   0.0f, 1.0f, 0.0f,  0.0f, 0.0f,   // vertex V1    4
-        -xsize, ysize, -zsize,  0.0f, 0.0f, -1.0f, 0.0f, 0.0f,   // vertex V1    5
+        -xsize, ysize, -zsize,  -1.0f, 0.0f, 0.0f,  0.0f, 1.0f,    // vertex V1    3
+        -xsize, ysize, -zsize,   0.0f, 1.0f, 0.0f,  1.0f, 0.0f,   // vertex V1    4
+        -xsize, ysize, -zsize,  0.0f, 0.0f, -1.0f, 1.0f, 1.0f,   // vertex V1    5
 
-        xsize, ysize, -zsize,    1.0f, 0.0f, 0.0f,  0.0f, 0.0f,    // vertex V2    6
+        xsize, ysize, -zsize,    1.0f, 0.0f, 0.0f,  1.0f, 0.0f,    // vertex V2    6
         xsize, ysize, -zsize,    0.0f, 1.0f, 0.0f,  0.0f, 0.0f,    // vertex V2    7
-        xsize, ysize, -zsize,    0.0f, 0.0f, -1.0f, 0.0f, 0.0f,   // vertex V2    8
+        xsize, ysize, -zsize,    0.0f, 0.0f, -1.0f, 1.0f, 0.0f,   // vertex V2    8
 
         xsize, -ysize, -zsize,   1.0f, 0.0f, 0.0f,  0.0f, 0.0f,   // vertex V3    9
-        xsize, -ysize, -zsize,   0.0f, -1.0f, 0.0f, 0.0f, 0.0f,   // vertex V3    10
+        xsize, -ysize, -zsize,   0.0f, -1.0f, 0.0f, 1.0f, 0.0f,   // vertex V3    10
         xsize, -ysize, -zsize,   0.0f, 0.0f, -1.0f, 0.0f, 0.0f,  // vertex V3    11
 
-        -xsize, -ysize, zsize,  -1.0f, 0.0f, 0.0f,  0.0f, 0.0f, // vertex V4    12
-        -xsize, -ysize, zsize,   0.0f, -1.0f, 0.0f, 0.0f, 0.0f,  // vertex V4    13
+        -xsize, -ysize, zsize,  -1.0f, 0.0f, 0.0f,  1.0f, 0.0f, // vertex V4    12
+        -xsize, -ysize, zsize,   0.0f, -1.0f, 0.0f, 1.0f, 1.0f,  // vertex V4    13
         -xsize, -ysize, zsize,   0.0f, 0.0f, 1.0f,  0.0f, 0.0f,  // vertex V4    14
 
-        -xsize, ysize, zsize,   -1.0f, 0.0f, 0.0f,  0.0f, 0.0f, // vertex V5    15
-        -xsize, ysize, zsize,    0.0f, 1.0f, 0.0f,  0.0f, 0.0f,  // vertex V5    16
-        -xsize, ysize, zsize,    0.0f, 0.0f, 1.0f,  0.0f, 0.0f,  // vertex V5    17
+        -xsize, ysize, zsize,   -1.0f, 0.0f, 0.0f,  1.0f, 1.0f, // vertex V5    15
+        -xsize, ysize, zsize,    0.0f, 1.0f, 0.0f,  1.0f, 1.0f,  // vertex V5    16
+        -xsize, ysize, zsize,    0.0f, 0.0f, 1.0f,  0.0f, 1.0f,  // vertex V5    17
 
-        xsize, ysize, zsize,     1.0f, 0.0f, 0.0f,  0.0f, 0.0f,  // vertex V6    18
-        xsize, ysize, zsize,    0.0f, 1.0f, 0.0f,  0.0f, 0.0f,  // vertex V6    19
-        xsize, ysize, zsize,    0.0f, 0.0f, 1.0f,  0.0f, 0.0f,  // vertex V6    20
+        xsize, ysize, zsize,     1.0f, 0.0f, 0.0f,  1.0f, 1.0f,  // vertex V6    18
+        xsize, ysize, zsize,    0.0f, 1.0f, 0.0f,  0.0f, 1.0f,  // vertex V6    19
+        xsize, ysize, zsize,    0.0f, 0.0f, 1.0f,  1.0f, 1.0f,  // vertex V6    20
 
         xsize, -ysize, zsize,    1.0f, 0.0f, 0.0f,  0.0f, 0.0f,  // vertex V7   21
-        xsize, -ysize, zsize,    0.0f, -1.0f, 0.0f, 0.0f, 0.0f,  // vertex V7   22
-        xsize, -ysize, zsize,    0.0f, 0.0f, 1.0f,  0.0f, 0.0f, // vertex V7   23
+        xsize, -ysize, zsize,    0.0f, -1.0f, 0.0f, 0.0f, 1.0f,  // vertex V7   22
+        xsize, -ysize, zsize,    0.0f, 0.0f, 1.0f,  1.0f, 0.0f, // vertex V7   23
     };
     const GLuint index_array_data[] = {
         //Bakre sidan
@@ -185,7 +186,7 @@ void TriangleSoup::createBox(float xsize, float ysize, float zsize) {
 
         //Toppen
         23,17,14,  //grön V7->V5->V4
-        23,20,17,  //grön V7->V4->V5
+        23,20,17,  //grön V7->V6->V5
 
         //Botten
         11,2,5,  //grön V3->V0->V1

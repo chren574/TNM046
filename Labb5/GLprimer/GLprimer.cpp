@@ -57,7 +57,8 @@ int main(int argc, char *argv[])
 
     Shader myShader;
 
-    TriangleSoup mySphere;
+    //TriangleSoup mySphere;
+    TriangleSoup myCube;
 
     Texture myTexture;
     GLint location_tex;
@@ -102,7 +103,8 @@ int main(int argc, char *argv[])
     Utilities::loadExtensions();
 
     myShader.createShader("vertex.glsl", "fragment.glsl");
-    mySphere.createSphere(0.5, 20);
+    //mySphere.createSphere(0.5, 20);
+    myCube.createBox(0.2,0.2,0.2);
 
     // Show some useful information on the GL context
     cout << "GL vendor:       " << glGetString(GL_VENDOR) << endl;
@@ -132,10 +134,10 @@ int main(int argc, char *argv[])
     location_tex = glGetUniformLocation(myShader.programID, "tex");
 //    location_tex = glGetUniformLocation(myShader.programID, "tex");
 
-    myTexture.createTexture("textures/earth.tga");
+    myTexture.createTexture("textures/pyramid.tga");
 
 
-    //glEnable(GL_CULL_FACE);
+    glEnable(GL_CULL_FACE);
 
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
@@ -160,7 +162,7 @@ int main(int argc, char *argv[])
         glUseProgram(myShader.programID);
         glBindTexture(GL_TEXTURE_2D, myTexture.texID);
         glUniform1i(location_tex, 0);
-        mySphere.render();
+        myCube.render();
         glBindTexture(GL_TEXTURE_2D, 0);
         glUseProgram(0);
 
@@ -169,10 +171,22 @@ int main(int argc, char *argv[])
         glUniformMatrix4fv(location_P, 1, GL_FALSE, P);
         glUniformMatrix4fv(location_MV, 1, GL_FALSE, MV);
 
+
         /* ---- Transformationer ---- */
 
+        Utilities::mat4identity(MV);
 
+        Utilities::mat4roty(P, time*pi/6);
+        Utilities::mat4mult(P, MV, MV);
 
+        Utilities::mat4translate(P,0.0, -0.5, -1.0);
+        Utilities::mat4mult(P, MV, MV);
+
+        Utilities::mat4rotx(P, pi/6);
+        Utilities::mat4mult(P, MV, MV);
+
+        Utilities::mat4perspective(P, pi/3, 1.0, 0.1, 100.0);
+        Utilities::mat4mult(P, MV, MV);
 
 
         // Swap buffers, i.e. display the image and prepare for next frame.

@@ -21,7 +21,7 @@ void main() {
 //  vec3 transformedNormal = mat3(MV) * Normal;
 //  interpolatedNormal = normalize(transformedNormal);
 
-    gl_Position = vec4(Position, 1.0);
+    gl_Position = MV*vec4(Position, 1.0);
 
 
 }

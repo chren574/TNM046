@@ -383,3 +383,71 @@
 	<cmath>
 	"Utilities.hpp"
 
+1397507572 source:g:\ladda upp till github\tnm046\labb5\glprimer\shader.cpp
+	"Shader.hpp"
+
+1397507572 g:\ladda upp till github\tnm046\labb5\glprimer\shader.hpp
+	<GLFW/glfw3.h>
+	"Utilities.hpp"
+	<cstdio>
+
+1397507572 g:\ladda upp till github\tnm046\labb5\glprimer\glfw\glfw3.h
+	<stddef.h>
+	<OpenGL/gl3.h>
+	<OpenGL/gl.h>
+	<OpenGL/glu.h>
+	<GL/glcorearb.h>
+	<GLES/gl.h>
+	<GLES2/gl2.h>
+	<GLES3/gl3.h>
+	<GL/gl.h>
+	<GL/glu.h>
+
+1399627072 g:\ladda upp till github\tnm046\labb5\glprimer\utilities.hpp
+	<GLFW/glfw3.h>
+	<GL/glext.h>
+
+1397507572 g:\ladda upp till github\tnm046\labb5\glprimer\gl\glext.h
+	<windows.h>
+	<stddef.h>
+	<inttypes.h>
+	<inttypes.h>
+	<inttypes.h>
+	<stdint.h>
+	<stdint.h>
+	<inttypes.h>
+
+1399886726 source:g:\ladda upp till github\tnm046\labb5\glprimer\trianglesoup.cpp
+	<cstdio>
+	<cmath>
+	<cstring>
+	"TriangleSoup.hpp"
+	"Utilities.hpp"
+
+1399031164 g:\ladda upp till github\tnm046\labb5\glprimer\trianglesoup.hpp
+	<GLFW/glfw3.h>
+
+1399627548 source:g:\ladda upp till github\tnm046\labb5\glprimer\utilities.cpp
+	<cstdio>
+	<cmath>
+	"Utilities.hpp"
+
+1399884680 source:g:\ladda upp till github\tnm046\labb5\glprimer\texture.cpp
+	"Texture.hpp"
+
+1398788134 g:\ladda upp till github\tnm046\labb5\glprimer\texture.hpp
+	<GLFW/glfw3.h>
+	<cstdio>
+	<cstring>
+	"Utilities.hpp"
+
+1399884546 source:g:\ladda upp till github\tnm046\labb5\glprimer\glprimer.cpp
+	"Shader.hpp"
+	"Utilities.hpp"
+	"TriangleSoup.hpp"
+	"Texture.hpp"
+	<iostream>
+	<cstdio>
+	<cmath>
+	<GLFW/glfw3.h>
+
