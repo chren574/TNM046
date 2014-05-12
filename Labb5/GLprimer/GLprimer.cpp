@@ -174,6 +174,7 @@ int main(int argc, char *argv[])
 
         /* ---- Transformationer ---- */
 
+
         Utilities::mat4identity(MV);
 
         Utilities::mat4roty(P, time*pi/6);
