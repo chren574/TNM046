@@ -1,14 +1,14 @@
 #version 330 core
 
+uniform sampler2D tex;
 
 out vec4 finalcolor;
 
-in vec3 interpolatedNormal;
-
+in vec2 st;
 
 
 void main() {
 
-    finalcolor = vec4(vec3(interpolatedNormal.z), 1.0);
+    finalcolor = texture(tex, st);
 
 }

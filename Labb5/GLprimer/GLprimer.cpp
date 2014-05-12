@@ -22,6 +22,8 @@
 #include "Shader.hpp"
 #include "Utilities.hpp"
 #include "TriangleSoup.hpp"
+#include "Texture.hpp"
+
 
 // File and console I/O for logging and error reporting
 #include <iostream>
@@ -49,12 +51,16 @@ int main(int argc, char *argv[])
     const float pi = 3.14;
 
     int width, height;
+
     float time;
+    GLint location_time;
 
     Shader myShader;
-    TriangleSoup myShape;
 
-    GLint location_time;
+    TriangleSoup mySphere;
+
+    Texture myTexture;
+    GLint location_tex;
 
     GLfloat MV[16];
     GLint location_MV;
@@ -96,7 +102,7 @@ int main(int argc, char *argv[])
     Utilities::loadExtensions();
 
     myShader.createShader("vertex.glsl", "fragment.glsl");
-    myShape.createBox(0.5,0.2,0.2);
+    mySphere.createSphere(0.5, 20);
 
     // Show some useful information on the GL context
     cout << "GL vendor:       " << glGetString(GL_VENDOR) << endl;
@@ -123,10 +129,15 @@ int main(int argc, char *argv[])
     Utilities::mat4identity(P);
     location_P = glGetUniformLocation(myShader.programID, "P");
 
+    location_tex = glGetUniformLocation(myShader.programID, "tex");
+//    location_tex = glGetUniformLocation(myShader.programID, "tex");
 
-    glEnable(GL_CULL_FACE);
+    myTexture.createTexture("textures/earth.tga");
 
-    glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+
+    //glEnable(GL_CULL_FACE);
+
+    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
     /* ---- Main loop ---- */
     while(!glfwWindowShouldClose(window))
@@ -142,31 +153,25 @@ int main(int argc, char *argv[])
 
         /* ---- Rendering code should go here ---- */
         time = (float)glfwGetTime();
-        glUseProgram(myShader.programID);
         glUniform1f(location_time, time);
+
+        /* ---- Labb 5 ---- */
+
+        glUseProgram(myShader.programID);
+        glBindTexture(GL_TEXTURE_2D, myTexture.texID);
+        glUniform1i(location_tex, 0);
+        mySphere.render();
+        glBindTexture(GL_TEXTURE_2D, 0);
+        glUseProgram(0);
+
+
 
         glUniformMatrix4fv(location_P, 1, GL_FALSE, P);
         glUniformMatrix4fv(location_MV, 1, GL_FALSE, MV);
 
         /* ---- Transformationer ---- */
 
-        myShape.render();
 
-        Utilities::mat4identity(MV);
-
-        Utilities::mat4roty(P, time*pi/6);
-        Utilities::mat4mult(P, MV, MV);
-
-        Utilities::mat4translate(P,0.0, -0.5, -1.0);
-        Utilities::mat4mult(P, MV, MV);
-
-        Utilities::mat4rotx(P, pi/6);
-        Utilities::mat4mult(P, MV, MV);
-
-
-
-        Utilities::mat4perspective(P, pi/3, 1.0, 0.1, 100.0);
-        Utilities::mat4mult(P, MV, MV);
 
 
 
