@@ -48,6 +48,8 @@
 			<Add directory="./GLFW" />
 		</Linker>
 		<Unit filename="GLprimer.cpp" />
+		<Unit filename="Rotator.cpp" />
+		<Unit filename="Rotator.hpp" />
 		<Unit filename="Shader.cpp" />
 		<Unit filename="Shader.hpp" />
 		<Unit filename="Texture.cpp" />

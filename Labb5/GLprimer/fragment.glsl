@@ -1,32 +1,23 @@
 #version 330 core
 
 uniform sampler2D tex;
+uniform mat4 T;
+
+in vec2 st;
+//in vec3 lightDirection;
+in vec3 interpolatedNormal;
 
 out vec4 finalcolor;
 
-in vec2 st;
-in vec3 light;
-
-
-in vec3 interpolatedNormal;
-//in vec3 shadedcolor;
-
-uniform mat4 T;
-
-
 
 void main() {
-
-
-
-
 
     //View direction
     vec3 V = vec3(0.0,0.0,1.0);
     //Normal
     vec3 N = interpolatedNormal;
     //Light direction
-    vec3 L = mat3(T)*normalize(vec3(1.0, 1.0, 1.0));
+    vec3 L = mat3(T)*normalize(vec3(0.0, 0.0, 1.0));
 
     //shininess parameter
     float n = 50;
@@ -51,10 +42,6 @@ void main() {
     float dotRV = max(dot(R,V), 0.0);
     vec3 shadedcolor = Ia*kd + Id*kd*dotNL + Is*ks*pow(dotRV, n);
 
-
-//    finalcolor = texture(tex, st);
     finalcolor = vec4(shadedcolor, 1.0);
-
-
 
 }

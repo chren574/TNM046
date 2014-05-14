@@ -3,7 +3,6 @@
 
 in vec3 interpolatedNormal;
 in vec2 st;
-//in vec3 shadedcolor;
 
 out vec4 finalcolor;
 
@@ -11,9 +10,6 @@ uniform mat4 T;
 
 
 void main() {
-
-
-
 
     //View direction
     vec3 V = vec3(0.0,0.0,1.0);
@@ -45,17 +41,6 @@ void main() {
     float dotRV = max(dot(R,V), 0.0);
     vec3 shadedcolor = Ia*ka + Id*kd*dotNL + Is*ks*pow(dotRV, n);
 
-
     finalcolor = vec4(shadedcolor, 1.0);
 
-//    vec3 lightDirection = vec3(1.0, -1.0, 1.0);
-//    float shading = dot(interpolatedNormal, lightDirection);
-//    shading = max(0.0, shading);
-//    finalcolor = vec4(vec3(shading), 1.0);
-
-    //finalcolor = vec4(vec3(interpolatedNormal.z), 1.0);
-    //finalcolor = vec4(st, 0, 1.0);
-
-
-    //finalcolor = vec4(1.0, 0.5, 6.0, 1.0);
 }

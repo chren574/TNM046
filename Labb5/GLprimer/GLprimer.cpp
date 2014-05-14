@@ -19,7 +19,7 @@
  * Author: Stefan Gustavson (stegu@itn.liu.se) 2013-2014
  * This code is in the public domain.
  */
- #include "Rotator.hpp"
+#include "Rotator.hpp"
 #include "Shader.hpp"
 #include "Utilities.hpp"
 #include "TriangleSoup.hpp"
@@ -54,9 +54,6 @@ int main(int argc, char *argv[])
 
     int width, height;
 
-    KeyRotator keyrot;
-    MouseRotator mouserot;
-
     float time;
     GLint location_time;
 
@@ -68,6 +65,9 @@ int main(int argc, char *argv[])
 
     Texture myTexture;
     Texture myEarth;
+
+    KeyRotator keyrot;
+    MouseRotator mouserot;
 
     GLint location_earth;
     GLint location_tex;
@@ -83,6 +83,9 @@ int main(int argc, char *argv[])
 
     GLfloat RL[16];
     GLint location_RL;
+
+    GLfloat T[16];
+    GLint location_T;
 
     const GLFWvidmode *vidmode;  // GLFW struct to hold information about the display
     GLFWwindow *window;    // GLFW struct to hold information about the window
@@ -156,6 +159,9 @@ int main(int argc, char *argv[])
     location_tex = glGetUniformLocation(myShader.programID, "tex");
     location_earth = glGetUniformLocation(myShader.programID, "earth");
 
+    Utilities::mat4identity(T);
+    location_T = glGetUniformLocation(myShader.programID, "T");
+
     myEarth.createTexture("textures/earth.tga");
     myTexture.createTexture("textures/trex.tga");
 
@@ -220,6 +226,10 @@ int main(int argc, char *argv[])
         Utilities::mat4translate(R, 0.0, 0.0, 1.0);
         Utilities::mat4mult(R, RL, RL);
 
+
+        Utilities::mat4translate(T, 0.0, 0.0, 1.0);
+        glUniformMatrix4fv(location_T, 1, GL_FALSE, T);
+
         glUniformMatrix4fv(location_P, 1, GL_FALSE, P);
         glUniformMatrix4fv(location_MV, 1, GL_FALSE, MV);
         glUniformMatrix4fv(location_RL, 1, GL_FALSE, RL);
@@ -235,7 +245,6 @@ int main(int argc, char *argv[])
 
         glBindTexture(GL_TEXTURE_2D, 0);
         glUseProgram(0);
-
 
 
         // Swap buffers, i.e. display the image and prepare for next frame.
