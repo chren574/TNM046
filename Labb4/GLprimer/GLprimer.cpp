@@ -126,7 +126,7 @@ int main(int argc, char *argv[])
 
     glEnable(GL_CULL_FACE);
 
-    glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
     /* ---- Main loop ---- */
     while(!glfwWindowShouldClose(window))
@@ -157,13 +157,11 @@ int main(int argc, char *argv[])
         Utilities::mat4roty(P, time*pi/6);
         Utilities::mat4mult(P, MV, MV);
 
-        Utilities::mat4translate(P,0.0, -0.5, -1.0);
+        Utilities::mat4translate(P,0.0, -0.5, -0.5);
         Utilities::mat4mult(P, MV, MV);
 
         Utilities::mat4rotx(P, pi/6);
         Utilities::mat4mult(P, MV, MV);
-
-
 
         Utilities::mat4perspective(P, pi/3, 1.0, 0.1, 100.0);
         Utilities::mat4mult(P, MV, MV);

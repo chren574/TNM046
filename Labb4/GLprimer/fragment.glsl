@@ -9,6 +9,6 @@ in vec3 interpolatedNormal;
 
 void main() {
 
-    finalcolor = vec4(vec3(interpolatedNormal.z), 1.0);
+    finalcolor = vec4(vec3(interpolatedNormal), 1.0);
 
 }

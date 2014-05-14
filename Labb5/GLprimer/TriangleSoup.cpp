@@ -135,27 +135,27 @@ void TriangleSoup::createBox(float xsize, float ysize, float zsize) {
 
       const GLfloat vertex_array_data[] = {
 
-        -xsize, -ysize, -zsize, -1.0f, 0.0f, 0.0f,  0.0f, 0.0f,   // vertex V0    0
-        -xsize, -ysize, -zsize,  0.0f, -1.0f, 0.0f, 1.0f, 0.0f,  // vertex V0    1
-        -xsize, -ysize, -zsize,  0.0f, 0.0f, -1.0f, 0.0f, 1.0f,   // vertex V0    2
+        -xsize, -ysize, -zsize, -1.0f, 0.0f, 0.0f,  1.0f, 0.0f,     // vertex V0    0
+        -xsize, -ysize, -zsize,  0.0f, -1.0f, 0.0f, 1.0f, 0.0f,     // vertex V0    1
+        -xsize, -ysize, -zsize,  0.0f, 0.0f, -1.0f, 1.0f, 0.0f,     // vertex V0    2
 
-        -xsize, ysize, -zsize,  -1.0f, 0.0f, 0.0f,  0.0f, 1.0f,    // vertex V1    3
-        -xsize, ysize, -zsize,   0.0f, 1.0f, 0.0f,  1.0f, 0.0f,   // vertex V1    4
-        -xsize, ysize, -zsize,  0.0f, 0.0f, -1.0f, 1.0f, 1.0f,   // vertex V1    5
+        -xsize, ysize, -zsize,  -1.0f, 0.0f, 0.0f,  0.0f, 0.0f,     // vertex V1    3
+        -xsize, ysize, -zsize,   0.0f, 1.0f, 0.0f,  1.0f, 0.0f,     // vertex V1    4
+        -xsize, ysize, -zsize,  0.0f, 0.0f, -1.0f, 1.0f, 1.0f,      // vertex V1    5
 
         xsize, ysize, -zsize,    1.0f, 0.0f, 0.0f,  1.0f, 0.0f,    // vertex V2    6
         xsize, ysize, -zsize,    0.0f, 1.0f, 0.0f,  0.0f, 0.0f,    // vertex V2    7
-        xsize, ysize, -zsize,    0.0f, 0.0f, -1.0f, 1.0f, 0.0f,   // vertex V2    8
+        xsize, ysize, -zsize,    0.0f, 0.0f, -1.0f, 1.0f, 0.0f,    // vertex V2    8
 
         xsize, -ysize, -zsize,   1.0f, 0.0f, 0.0f,  0.0f, 0.0f,   // vertex V3    9
-        xsize, -ysize, -zsize,   0.0f, -1.0f, 0.0f, 1.0f, 0.0f,   // vertex V3    10
-        xsize, -ysize, -zsize,   0.0f, 0.0f, -1.0f, 0.0f, 0.0f,  // vertex V3    11
+        xsize, -ysize, -zsize,   0.0f, -1.0f, 0.0f, 0.0f, 0.0f,   // vertex V3    10
+        xsize, -ysize, -zsize,   0.0f, 0.0f, -1.0f, 0.0f, 0.0f,   // vertex V3    11
 
-        -xsize, -ysize, zsize,  -1.0f, 0.0f, 0.0f,  1.0f, 0.0f, // vertex V4    12
+        -xsize, -ysize, zsize,  -1.0f, 0.0f, 0.0f,  1.0f, 1.0f, // vertex V4    12
         -xsize, -ysize, zsize,   0.0f, -1.0f, 0.0f, 1.0f, 1.0f,  // vertex V4    13
         -xsize, -ysize, zsize,   0.0f, 0.0f, 1.0f,  0.0f, 0.0f,  // vertex V4    14
 
-        -xsize, ysize, zsize,   -1.0f, 0.0f, 0.0f,  1.0f, 1.0f, // vertex V5    15
+        -xsize, ysize, zsize,   -1.0f, 0.0f, 0.0f,  0.0f, 1.0f, // vertex V5    15
         -xsize, ysize, zsize,    0.0f, 1.0f, 0.0f,  1.0f, 1.0f,  // vertex V5    16
         -xsize, ysize, zsize,    0.0f, 0.0f, 1.0f,  0.0f, 1.0f,  // vertex V5    17
 
@@ -163,7 +163,7 @@ void TriangleSoup::createBox(float xsize, float ysize, float zsize) {
         xsize, ysize, zsize,    0.0f, 1.0f, 0.0f,  0.0f, 1.0f,  // vertex V6    19
         xsize, ysize, zsize,    0.0f, 0.0f, 1.0f,  1.0f, 1.0f,  // vertex V6    20
 
-        xsize, -ysize, zsize,    1.0f, 0.0f, 0.0f,  0.0f, 0.0f,  // vertex V7   21
+        xsize, -ysize, zsize,    1.0f, 0.0f, 0.0f,  0.0f, 1.0f,  // vertex V7   21
         xsize, -ysize, zsize,    0.0f, -1.0f, 0.0f, 0.0f, 1.0f,  // vertex V7   22
         xsize, -ysize, zsize,    0.0f, 0.0f, 1.0f,  1.0f, 0.0f, // vertex V7   23
     };

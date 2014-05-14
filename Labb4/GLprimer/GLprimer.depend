@@ -383,3 +383,61 @@
 	<cmath>
 	"Utilities.hpp"
 
+1397507572 source:g:\tnm046 - datorgrafik\tnm046\labb4\glprimer\shader.cpp
+	"Shader.hpp"
+
+1397507572 g:\tnm046 - datorgrafik\tnm046\labb4\glprimer\shader.hpp
+	<GLFW/glfw3.h>
+	"Utilities.hpp"
+	<cstdio>
+
+1397507572 g:\tnm046 - datorgrafik\tnm046\labb4\glprimer\glfw\glfw3.h
+	<stddef.h>
+	<OpenGL/gl3.h>
+	<OpenGL/gl.h>
+	<OpenGL/glu.h>
+	<GL/glcorearb.h>
+	<GLES/gl.h>
+	<GLES2/gl2.h>
+	<GLES3/gl3.h>
+	<GL/gl.h>
+	<GL/glu.h>
+
+1399627072 g:\tnm046 - datorgrafik\tnm046\labb4\glprimer\utilities.hpp
+	<GLFW/glfw3.h>
+	<GL/glext.h>
+
+1397507572 g:\tnm046 - datorgrafik\tnm046\labb4\glprimer\gl\glext.h
+	<windows.h>
+	<stddef.h>
+	<inttypes.h>
+	<inttypes.h>
+	<inttypes.h>
+	<stdint.h>
+	<stdint.h>
+	<inttypes.h>
+
+1399625702 source:g:\tnm046 - datorgrafik\tnm046\labb4\glprimer\trianglesoup.cpp
+	<cstdio>
+	<cmath>
+	<cstring>
+	"TriangleSoup.hpp"
+	"Utilities.hpp"
+
+1399031164 g:\tnm046 - datorgrafik\tnm046\labb4\glprimer\trianglesoup.hpp
+	<GLFW/glfw3.h>
+
+1399627548 source:g:\tnm046 - datorgrafik\tnm046\labb4\glprimer\utilities.cpp
+	<cstdio>
+	<cmath>
+	"Utilities.hpp"
+
+1400049358 source:g:\tnm046 - datorgrafik\tnm046\labb4\glprimer\glprimer.cpp
+	"Shader.hpp"
+	"Utilities.hpp"
+	"TriangleSoup.hpp"
+	<iostream>
+	<cstdio>
+	<cmath>
+	<GLFW/glfw3.h>
+

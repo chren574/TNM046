@@ -19,10 +19,12 @@
  * Author: Stefan Gustavson (stegu@itn.liu.se) 2013-2014
  * This code is in the public domain.
  */
+ #include "Rotator.hpp"
 #include "Shader.hpp"
 #include "Utilities.hpp"
 #include "TriangleSoup.hpp"
 #include "Texture.hpp"
+
 
 
 // File and console I/O for logging and error reporting
@@ -52,15 +54,22 @@ int main(int argc, char *argv[])
 
     int width, height;
 
+    KeyRotator keyrot;
+    MouseRotator mouserot;
+
     float time;
     GLint location_time;
 
     Shader myShader;
 
-    //TriangleSoup mySphere;
+    TriangleSoup mySphere;
     TriangleSoup myCube;
+    TriangleSoup myObject;
 
     Texture myTexture;
+    Texture myEarth;
+
+    GLint location_earth;
     GLint location_tex;
 
     GLfloat MV[16];
@@ -68,6 +77,12 @@ int main(int argc, char *argv[])
 
     GLfloat P[16];
     GLint location_P;
+
+    GLfloat R[16];
+    GLint location_R;
+
+    GLfloat RL[16];
+    GLint location_RL;
 
     const GLFWvidmode *vidmode;  // GLFW struct to hold information about the display
     GLFWwindow *window;    // GLFW struct to hold information about the window
@@ -103,8 +118,9 @@ int main(int argc, char *argv[])
     Utilities::loadExtensions();
 
     myShader.createShader("vertex.glsl", "fragment.glsl");
-    //mySphere.createSphere(0.5, 20);
-    myCube.createBox(0.2,0.2,0.2);
+    mySphere.createSphere(0.5, 20);
+
+    myObject.readOBJ("meshes/trex.obj");
 
     // Show some useful information on the GL context
     cout << "GL vendor:       " << glGetString(GL_VENDOR) << endl;
@@ -131,15 +147,26 @@ int main(int argc, char *argv[])
     Utilities::mat4identity(P);
     location_P = glGetUniformLocation(myShader.programID, "P");
 
+    Utilities::mat4identity(R);
+    location_R = glGetUniformLocation(myShader.programID, "R");
+
+    Utilities::mat4identity(RL);
+    location_RL = glGetUniformLocation(myShader.programID, "RL");
+
     location_tex = glGetUniformLocation(myShader.programID, "tex");
-//    location_tex = glGetUniformLocation(myShader.programID, "tex");
+    location_earth = glGetUniformLocation(myShader.programID, "earth");
 
-    myTexture.createTexture("textures/pyramid.tga");
+    myEarth.createTexture("textures/earth.tga");
+    myTexture.createTexture("textures/trex.tga");
 
 
-    glEnable(GL_CULL_FACE);
+    keyrot.init(window);
+    mouserot.init(window);
 
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+    glEnable(GL_DEPTH_TEST);
+    glEnable(GL_CULL_FACE);
+
 
     /* ---- Main loop ---- */
     while(!glfwWindowShouldClose(window))
@@ -149,45 +176,66 @@ int main(int argc, char *argv[])
 
         Utilities::displayFPS(window);
 
+        keyrot.poll(window);
+        mouserot.poll(window);
+
         // Set the clear color and depth, and clear the buffers for drawing
         glClearColor(0.0f, 0.9f, 0.0f, 0.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         /* ---- Rendering code should go here ---- */
         time = (float)glfwGetTime();
-        glUniform1f(location_time, time);
-
-        /* ---- Labb 5 ---- */
-
         glUseProgram(myShader.programID);
-        glBindTexture(GL_TEXTURE_2D, myTexture.texID);
-        glUniform1i(location_tex, 0);
-        myCube.render();
-        glBindTexture(GL_TEXTURE_2D, 0);
-        glUseProgram(0);
-
-
-
-        glUniformMatrix4fv(location_P, 1, GL_FALSE, P);
-        glUniformMatrix4fv(location_MV, 1, GL_FALSE, MV);
-
+        glUniform1f(location_time, time);
 
         /* ---- Transformationer ---- */
 
 
+
         Utilities::mat4identity(MV);
 
-        Utilities::mat4roty(P, time*pi/6);
-        Utilities::mat4mult(P, MV, MV);
+        /* ---- User input ---- */
+        // Mouse rotation
+        Utilities::mat4roty(R, mouserot.phi);
+        Utilities::mat4mult(R, MV, MV);
 
-        Utilities::mat4translate(P,0.0, -0.5, -1.0);
-        Utilities::mat4mult(P, MV, MV);
+        Utilities::mat4rotx(R, mouserot.theta);
+        Utilities::mat4mult(R, MV, MV);
 
-        Utilities::mat4rotx(P, pi/6);
+        //Keyboard rotation
+        Utilities::mat4roty(R, keyrot.phi);
+        Utilities::mat4mult(R, MV, MV);
+
+        Utilities::mat4rotx(R, keyrot.theta);
+        Utilities::mat4mult(R, MV, MV);
+
+        /* ---- Flyttar objekten ---- */
+        Utilities::mat4translate(P,0.0, -0.5, -2.0);
         Utilities::mat4mult(P, MV, MV);
 
         Utilities::mat4perspective(P, pi/3, 1.0, 0.1, 100.0);
-        Utilities::mat4mult(P, MV, MV);
+
+
+
+        Utilities::mat4translate(R, 0.0, 0.0, 1.0);
+        Utilities::mat4mult(R, RL, RL);
+
+        glUniformMatrix4fv(location_P, 1, GL_FALSE, P);
+        glUniformMatrix4fv(location_MV, 1, GL_FALSE, MV);
+        glUniformMatrix4fv(location_RL, 1, GL_FALSE, RL);
+
+
+        glBindTexture(GL_TEXTURE_2D, myEarth.texID);
+        glUniform1i(location_earth, 0);
+        mySphere.render();
+
+        glBindTexture(GL_TEXTURE_2D, myTexture.texID);
+        glUniform1i(location_tex, 0);
+        myObject.render();
+
+        glBindTexture(GL_TEXTURE_2D, 0);
+        glUseProgram(0);
+
 
 
         // Swap buffers, i.e. display the image and prepare for next frame.
