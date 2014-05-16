@@ -60,16 +60,19 @@ int main(int argc, char *argv[])
     Shader myShader;
 
     TriangleSoup mySphere;
+    TriangleSoup myMoon;
     TriangleSoup myCube;
     TriangleSoup myObject;
 
     Texture myTexture;
     Texture myEarth;
+    Texture myMoontex;
 
     KeyRotator keyrot;
     MouseRotator mouserot;
 
     GLint location_earth;
+    GLint location_moon;
     GLint location_tex;
 
     GLfloat MV[16];
@@ -121,9 +124,10 @@ int main(int argc, char *argv[])
     Utilities::loadExtensions();
 
     myShader.createShader("vertex.glsl", "fragment.glsl");
-    mySphere.createSphere(0.5, 20);
+    mySphere.createSphere(0.5, 50);
+    myMoon.createSphere(0.2, 50);
 
-    myObject.readOBJ("meshes/trex.obj");
+    //myObject.readOBJ("meshes/trex.obj");
 
     // Show some useful information on the GL context
     cout << "GL vendor:       " << glGetString(GL_VENDOR) << endl;
@@ -158,12 +162,13 @@ int main(int argc, char *argv[])
 
     location_tex = glGetUniformLocation(myShader.programID, "tex");
     location_earth = glGetUniformLocation(myShader.programID, "earth");
+    location_moon = glGetUniformLocation(myShader.programID, "moon");
 
     Utilities::mat4identity(T);
     location_T = glGetUniformLocation(myShader.programID, "T");
 
     myEarth.createTexture("textures/earth.tga");
-    myTexture.createTexture("textures/trex.tga");
+    myMoontex.createTexture("textures/moon.tga");
 
 
     keyrot.init(window);
@@ -202,46 +207,106 @@ int main(int argc, char *argv[])
 
         /* ---- User input ---- */
         // Mouse rotation
+
+
         Utilities::mat4roty(R, mouserot.phi);
         Utilities::mat4mult(R, MV, MV);
 
         Utilities::mat4rotx(R, mouserot.theta);
         Utilities::mat4mult(R, MV, MV);
 
-        //Keyboard rotation
-        Utilities::mat4roty(R, keyrot.phi);
+        Utilities::mat4scale(R, 0.3);
         Utilities::mat4mult(R, MV, MV);
 
-        Utilities::mat4rotx(R, keyrot.theta);
+        Utilities::mat4translate(R, 1.0, 0.0, -2.0);
         Utilities::mat4mult(R, MV, MV);
 
-        /* ---- Flyttar objekten ---- */
-        Utilities::mat4translate(P,0.0, -0.5, -2.0);
-        Utilities::mat4mult(P, MV, MV);
-
-        Utilities::mat4perspective(P, pi/3, 1.0, 0.1, 100.0);
-
-
-
-        Utilities::mat4translate(R, 0.0, 0.0, 1.0);
-        Utilities::mat4mult(R, RL, RL);
-
+        Utilities::mat4roty(R, time*pi/3);
+        Utilities::mat4mult(R, MV, MV);
 
         Utilities::mat4translate(T, 0.0, 0.0, 1.0);
         glUniformMatrix4fv(location_T, 1, GL_FALSE, T);
 
-        glUniformMatrix4fv(location_P, 1, GL_FALSE, P);
-        glUniformMatrix4fv(location_MV, 1, GL_FALSE, MV);
-        glUniformMatrix4fv(location_RL, 1, GL_FALSE, RL);
 
+        glUniformMatrix4fv(location_MV, 1, GL_FALSE, MV);
+        glUniformMatrix4fv(location_P, 1, GL_FALSE, P);
+
+
+        glBindTexture(GL_TEXTURE_2D, myMoontex.texID);
+        glUniform1i(location_moon, 0);
+        myMoon.render();
+
+
+
+        Utilities::mat4identity(MV);
+
+        Utilities::mat4scale(R, 0.3);
+        Utilities::mat4mult(R, MV, MV);
+
+        Utilities::mat4rotx(R, -pi/2);
+        Utilities::mat4mult(R, MV, MV);
+
+        Utilities::mat4roty(R, time*pi/6);
+        Utilities::mat4mult(R, MV, MV);
+
+        Utilities::mat4translate(R, 0.0, 0.0, -2.0);
+        Utilities::mat4mult(R, MV, MV);
+
+
+
+
+        glUniformMatrix4fv(location_MV, 1, GL_FALSE, MV);
+        glUniformMatrix4fv(location_P, 1, GL_FALSE, P);
 
         glBindTexture(GL_TEXTURE_2D, myEarth.texID);
         glUniform1i(location_earth, 0);
         mySphere.render();
 
-        glBindTexture(GL_TEXTURE_2D, myTexture.texID);
-        glUniform1i(location_tex, 0);
-        myObject.render();
+
+
+        Utilities::mat4perspective(P, pi/3, 1.0, 0.1, 100.0);
+        Utilities::mat4identity(MV);
+
+        glUniformMatrix4fv(location_P, 1, GL_FALSE, P);
+        glUniformMatrix4fv(location_MV, 1, GL_FALSE, MV);
+
+
+
+
+        //Utilities::mat4perspective(P, pi/3, 1.0, 0.1, 100.0);
+
+        //glUniformMatrix4fv(location_P, 1, GL_FALSE, P);
+
+//        glUniformMatrix4fv(location_MV, 1, GL_FALSE, MV);
+
+//        glBindTexture(GL_TEXTURE_2D, myEarth.texID);
+//        glUniform1i(location_earth, 0);
+//        mySphere.render();
+
+
+//        //Utilities::mat4identity(MV);
+//
+//        //Keyboard rotation
+//        Utilities::mat4roty(R, keyrot.phi);
+//        Utilities::mat4mult(R, MV, MV);
+//
+//        Utilities::mat4rotx(R, keyrot.theta);
+//        Utilities::mat4mult(R, MV, MV);
+//
+//        /* ---- Flyttar objekten ---- */
+//        Utilities::mat4translate(R,0.0, 0.0, 0.5);
+//        Utilities::mat4mult(R, MV, MV);
+//
+//        //Utilities::mat4perspective(P, pi/3, 1.0, 0.1, 100.0);
+//        Utilities::mat4identity(P);
+//
+//        Utilities::mat4translate(T, 0.0, 0.0, 1.0);
+//        glUniformMatrix4fv(location_T, 1, GL_FALSE, T);
+//
+//        glUniformMatrix4fv(location_P, 1, GL_FALSE, P);
+//        glUniformMatrix4fv(location_MV, 1, GL_FALSE, MV);
+//
+
 
         glBindTexture(GL_TEXTURE_2D, 0);
         glUseProgram(0);
