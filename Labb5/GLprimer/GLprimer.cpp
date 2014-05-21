@@ -62,7 +62,7 @@ int main(int argc, char *argv[])
     TriangleSoup mySphere;
     TriangleSoup myMoon;
     TriangleSoup myCube;
-    TriangleSoup myObject;
+    TriangleSoup myTrex;
 
     Texture myTexture;
     Texture myEarth;
@@ -83,9 +83,6 @@ int main(int argc, char *argv[])
 
     GLfloat R[16];
     GLint location_R;
-
-    GLfloat RL[16];
-    GLint location_RL;
 
     GLfloat T[16];
     GLint location_T;
@@ -126,8 +123,7 @@ int main(int argc, char *argv[])
     myShader.createShader("vertex.glsl", "fragment.glsl");
     mySphere.createSphere(0.5, 50);
     myMoon.createSphere(0.2, 50);
-
-    //myObject.readOBJ("meshes/trex.obj");
+    myTrex.readOBJ("meshes/trex.obj");
 
     // Show some useful information on the GL context
     cout << "GL vendor:       " << glGetString(GL_VENDOR) << endl;
@@ -157,8 +153,6 @@ int main(int argc, char *argv[])
     Utilities::mat4identity(R);
     location_R = glGetUniformLocation(myShader.programID, "R");
 
-    Utilities::mat4identity(RL);
-    location_RL = glGetUniformLocation(myShader.programID, "RL");
 
     location_tex = glGetUniformLocation(myShader.programID, "tex");
     location_earth = glGetUniformLocation(myShader.programID, "earth");
@@ -169,7 +163,7 @@ int main(int argc, char *argv[])
 
     myEarth.createTexture("textures/earth.tga");
     myMoontex.createTexture("textures/moon.tga");
-
+    myTexture.createTexture("textures/trex.tga");
 
     keyrot.init(window);
     mouserot.init(window);
@@ -199,14 +193,10 @@ int main(int argc, char *argv[])
         glUseProgram(myShader.programID);
         glUniform1f(location_time, time);
 
-        /* ---- Transformationer ---- */
 
-
-
+        /* ----- Solsystem -------*/
+/*
         Utilities::mat4identity(MV);
-
-        /* ---- User input ---- */
-        // Mouse rotation
 
 
         Utilities::mat4roty(R, mouserot.phi);
@@ -215,10 +205,10 @@ int main(int argc, char *argv[])
         Utilities::mat4rotx(R, mouserot.theta);
         Utilities::mat4mult(R, MV, MV);
 
-        Utilities::mat4scale(R, 0.3);
+        Utilities::mat4scale(R, 0.5);
         Utilities::mat4mult(R, MV, MV);
 
-        Utilities::mat4translate(R, 1.0, 0.0, -2.0);
+        Utilities::mat4translate(R, 0.5, 0.0, 0.0);
         Utilities::mat4mult(R, MV, MV);
 
         Utilities::mat4roty(R, time*pi/3);
@@ -237,10 +227,15 @@ int main(int argc, char *argv[])
         myMoon.render();
 
 
-
         Utilities::mat4identity(MV);
 
-        Utilities::mat4scale(R, 0.3);
+        Utilities::mat4roty(R, keyrot.phi);
+        Utilities::mat4mult(R, MV, MV);
+
+        Utilities::mat4rotx(R, keyrot.theta);
+        Utilities::mat4mult(R, MV, MV);
+
+        Utilities::mat4scale(R, 0.5);
         Utilities::mat4mult(R, MV, MV);
 
         Utilities::mat4rotx(R, -pi/2);
@@ -249,7 +244,7 @@ int main(int argc, char *argv[])
         Utilities::mat4roty(R, time*pi/6);
         Utilities::mat4mult(R, MV, MV);
 
-        Utilities::mat4translate(R, 0.0, 0.0, -2.0);
+        Utilities::mat4translate(R, 0.0, 0.0, 0.0);
         Utilities::mat4mult(R, MV, MV);
 
 
@@ -263,50 +258,68 @@ int main(int argc, char *argv[])
         mySphere.render();
 
 
-
-        Utilities::mat4perspective(P, pi/3, 1.0, 0.1, 100.0);
+        //Utilities::mat4perspective(P, pi/3, 1.0, 0.1, 100.0);
         Utilities::mat4identity(MV);
 
         glUniformMatrix4fv(location_P, 1, GL_FALSE, P);
         glUniformMatrix4fv(location_MV, 1, GL_FALSE, MV);
+*/
+
+        /* ---- Dinosarie i en jordglob ----- */
 
 
+        Utilities::mat4identity(MV);
+        Utilities::mat4identity(P);
 
+        Utilities::mat4roty(R, keyrot.phi);
+        Utilities::mat4mult(R, MV, MV);
+
+        Utilities::mat4rotx(R, keyrot.theta);
+        Utilities::mat4mult(R, MV, MV);
+
+        Utilities::mat4rotx(R, -pi/3);
+        Utilities::mat4mult(R, MV, MV);
+
+        Utilities::mat4roty(R, pi/4);
+        Utilities::mat4mult(R, MV, MV);
+
+        Utilities::mat4scale(R, 0.7);
+        Utilities::mat4mult(R, MV, MV);
+
+        //Utilities::mat4translate(T, 0.0, 1.0, 0.0);
+        Utilities::mat4roty(T, time*pi/4);
+        glUniformMatrix4fv(location_T, 1, GL_FALSE, T);
+
+        glUniformMatrix4fv(location_P, 1, GL_FALSE, P);
+        glUniformMatrix4fv(location_MV, 1, GL_FALSE, MV);
+
+        glBindTexture(GL_TEXTURE_2D, myEarth.texID);
+        glUniform1i(location_earth, 0);
+        mySphere.render();
 
         //Utilities::mat4perspective(P, pi/3, 1.0, 0.1, 100.0);
+        Utilities::mat4identity(P);
+        Utilities::mat4identity(R);
+        Utilities::mat4identity(MV);
 
-        //glUniformMatrix4fv(location_P, 1, GL_FALSE, P);
+        Utilities::mat4roty(R, mouserot.phi);
+        Utilities::mat4mult(R, MV, MV);
 
-//        glUniformMatrix4fv(location_MV, 1, GL_FALSE, MV);
+        Utilities::mat4rotx(R, mouserot.theta);
+        Utilities::mat4mult(R, MV, MV);
 
-//        glBindTexture(GL_TEXTURE_2D, myEarth.texID);
-//        glUniform1i(location_earth, 0);
-//        mySphere.render();
+        Utilities::mat4scale(R, 0.7);
+        Utilities::mat4mult(R, MV, MV);
 
 
-//        //Utilities::mat4identity(MV);
-//
-//        //Keyboard rotation
-//        Utilities::mat4roty(R, keyrot.phi);
-//        Utilities::mat4mult(R, MV, MV);
-//
-//        Utilities::mat4rotx(R, keyrot.theta);
-//        Utilities::mat4mult(R, MV, MV);
-//
-//        /* ---- Flyttar objekten ---- */
-//        Utilities::mat4translate(R,0.0, 0.0, 0.5);
-//        Utilities::mat4mult(R, MV, MV);
-//
-//        //Utilities::mat4perspective(P, pi/3, 1.0, 0.1, 100.0);
-//        Utilities::mat4identity(P);
-//
-//        Utilities::mat4translate(T, 0.0, 0.0, 1.0);
-//        glUniformMatrix4fv(location_T, 1, GL_FALSE, T);
-//
-//        glUniformMatrix4fv(location_P, 1, GL_FALSE, P);
-//        glUniformMatrix4fv(location_MV, 1, GL_FALSE, MV);
-//
+        glUniformMatrix4fv(location_T, 1, GL_FALSE, T);
+        glUniformMatrix4fv(location_P, 1, GL_FALSE, P);
+        glUniformMatrix4fv(location_MV, 1, GL_FALSE, MV);
 
+
+        glBindTexture(GL_TEXTURE_2D, myTexture.texID);
+        glUniform1i(location_tex, 0);
+        myTrex.render();
 
         glBindTexture(GL_TEXTURE_2D, 0);
         glUseProgram(0);
