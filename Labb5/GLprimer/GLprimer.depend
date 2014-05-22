@@ -682,3 +682,80 @@
 	<cmath>
 	<GLFW/glfw3.h>
 
+1400763236 source:h:\tnm046 - datorgrafik\labb5\tnm046\labb5\glprimer\rotator.cpp
+	"Rotator.hpp"
+	<cmath>
+
+1400763236 h:\tnm046 - datorgrafik\labb5\tnm046\labb5\glprimer\rotator.hpp
+	<GLFW/glfw3.h>
+	<cmath>
+
+1400763236 h:\tnm046 - datorgrafik\labb5\tnm046\labb5\glprimer\glfw\glfw3.h
+	<stddef.h>
+	<OpenGL/gl3.h>
+	<OpenGL/gl.h>
+	<OpenGL/glu.h>
+	<GL/glcorearb.h>
+	<GLES/gl.h>
+	<GLES2/gl2.h>
+	<GLES3/gl3.h>
+	<GL/gl.h>
+	<GL/glu.h>
+
+1400763236 source:h:\tnm046 - datorgrafik\labb5\tnm046\labb5\glprimer\shader.cpp
+	"Shader.hpp"
+
+1400763236 h:\tnm046 - datorgrafik\labb5\tnm046\labb5\glprimer\shader.hpp
+	<GLFW/glfw3.h>
+	"Utilities.hpp"
+	<cstdio>
+
+1400763236 h:\tnm046 - datorgrafik\labb5\tnm046\labb5\glprimer\utilities.hpp
+	<GLFW/glfw3.h>
+	<GL/glext.h>
+
+1400763236 h:\tnm046 - datorgrafik\labb5\tnm046\labb5\glprimer\gl\glext.h
+	<windows.h>
+	<stddef.h>
+	<inttypes.h>
+	<inttypes.h>
+	<inttypes.h>
+	<stdint.h>
+	<stdint.h>
+	<inttypes.h>
+
+1400763236 source:h:\tnm046 - datorgrafik\labb5\tnm046\labb5\glprimer\texture.cpp
+	"Texture.hpp"
+
+1400763236 h:\tnm046 - datorgrafik\labb5\tnm046\labb5\glprimer\texture.hpp
+	<GLFW/glfw3.h>
+	<cstdio>
+	<cstring>
+	"Utilities.hpp"
+
+1400763236 source:h:\tnm046 - datorgrafik\labb5\tnm046\labb5\glprimer\trianglesoup.cpp
+	<cstdio>
+	<cmath>
+	<cstring>
+	"TriangleSoup.hpp"
+	"Utilities.hpp"
+
+1400763236 h:\tnm046 - datorgrafik\labb5\tnm046\labb5\glprimer\trianglesoup.hpp
+	<GLFW/glfw3.h>
+
+1400764752 source:h:\tnm046 - datorgrafik\labb5\tnm046\labb5\glprimer\utilities.cpp
+	<cstdio>
+	<cmath>
+	"Utilities.hpp"
+
+1400764234 source:h:\tnm046 - datorgrafik\labb5\tnm046\labb5\glprimer\glprimer.cpp
+	"Rotator.hpp"
+	"Shader.hpp"
+	"Utilities.hpp"
+	"TriangleSoup.hpp"
+	"Texture.hpp"
+	<iostream>
+	<cstdio>
+	<cmath>
+	<GLFW/glfw3.h>
+

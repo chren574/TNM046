@@ -273,6 +273,7 @@ void Utilities::mat4perspective(float M[], float vfov, float aspect, float znear
 
     M[14] = -(2*zfar*znear)/(zfar-znear);
 
+    M[15]=0.0f;
 }
 
 

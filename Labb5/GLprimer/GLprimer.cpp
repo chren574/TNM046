@@ -198,7 +198,6 @@ int main(int argc, char *argv[])
 /*
         Utilities::mat4identity(MV);
 
-
         Utilities::mat4roty(R, mouserot.phi);
         Utilities::mat4mult(R, MV, MV);
 
@@ -265,11 +264,11 @@ int main(int argc, char *argv[])
         glUniformMatrix4fv(location_MV, 1, GL_FALSE, MV);
 */
 
-        /* ---- Dinosarie i en jordglob ----- */
-
+        /* ---- Jordglob ----- */
 
         Utilities::mat4identity(MV);
-        Utilities::mat4identity(P);
+        Utilities::mat4perspective(P, pi/3, 1.0, 0.1, 100.0);
+
 
         Utilities::mat4roty(R, keyrot.phi);
         Utilities::mat4mult(R, MV, MV);
@@ -283,13 +282,17 @@ int main(int argc, char *argv[])
         Utilities::mat4roty(R, pi/4);
         Utilities::mat4mult(R, MV, MV);
 
-        Utilities::mat4scale(R, 0.7);
+        //Utilities::mat4scale(R, 0.7);
+        //Utilities::mat4mult(R, MV, MV);
+
+        Utilities::mat4translate(R, 0, 0.0 , -3.0);
         Utilities::mat4mult(R, MV, MV);
 
+        /* ---- Ljuset----- */
         //Utilities::mat4translate(T, 0.0, 1.0, 0.0);
         Utilities::mat4roty(T, time*pi/4);
-        glUniformMatrix4fv(location_T, 1, GL_FALSE, T);
 
+        glUniformMatrix4fv(location_T, 1, GL_FALSE, T);
         glUniformMatrix4fv(location_P, 1, GL_FALSE, P);
         glUniformMatrix4fv(location_MV, 1, GL_FALSE, MV);
 
@@ -297,25 +300,30 @@ int main(int argc, char *argv[])
         glUniform1i(location_earth, 0);
         mySphere.render();
 
-        //Utilities::mat4perspective(P, pi/3, 1.0, 0.1, 100.0);
-        Utilities::mat4identity(P);
+        /* ---- T-rex ----- */
+
         Utilities::mat4identity(R);
         Utilities::mat4identity(MV);
-
-        Utilities::mat4roty(R, mouserot.phi);
-        Utilities::mat4mult(R, MV, MV);
 
         Utilities::mat4rotx(R, mouserot.theta);
         Utilities::mat4mult(R, MV, MV);
 
-        Utilities::mat4scale(R, 0.7);
+        Utilities::mat4roty(R, mouserot.phi);
         Utilities::mat4mult(R, MV, MV);
 
+        //Utilities::mat4scale(R, 0.3);
+        //Utilities::mat4mult(R, MV, MV);
 
+        Utilities::mat4roty(R, pi/2);
+        Utilities::mat4mult(R, MV, MV);
+
+        Utilities::mat4translate(R, 0, 0.3 ,-3.0);
+        Utilities::mat4mult(R, MV, MV);
+
+        Utilities::mat4perspective(P, pi/3, 1.0, 0.1, 100.0);
         glUniformMatrix4fv(location_T, 1, GL_FALSE, T);
-        glUniformMatrix4fv(location_P, 1, GL_FALSE, P);
+//        glUniformMatrix4fv(location_P, 1, GL_FALSE, P);
         glUniformMatrix4fv(location_MV, 1, GL_FALSE, MV);
-
 
         glBindTexture(GL_TEXTURE_2D, myTexture.texID);
         glUniform1i(location_tex, 0);
